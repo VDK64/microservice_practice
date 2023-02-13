@@ -1,0 +1,47 @@
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: speaker-config
+# data:
+#   POSTGRES_HOST: "192.168.0.106"
+#   POSTGRES_PORT: "5555"
+#   POSTGRES_DB_NAME: "speaker"
+#   POSTGRES_PASSWORD: "root"
+# 
+# ---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: speaker-deployment
+  labels:
+    app: speaker
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: speaker
+  template:
+    metadata:
+      labels:
+        app: speaker
+    spec:
+      containers:
+      - name: speaker
+        image: mytyan/speaker:0.0.2
+        ports:
+        - containerPort: 8080
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: speaker-service
+spec:
+  selector:
+    app: speaker
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080

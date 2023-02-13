@@ -1,14 +1,11 @@
 package com.speaker.speaker.dtos;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
-@RequiredArgsConstructor
+@Data
+@NoArgsConstructor
 public class SpeakerDto {
-    private final String name;
-    private final int age;
+    private String name;
+    private int age;
 
 }
