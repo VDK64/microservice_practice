@@ -6,7 +6,18 @@ data:
   POSTGRES_HOST: "192.168.0.106"
   POSTGRES_PORT: "5555"
   POSTGRES_DB_NAME: "speaker"
-  POSTGRES_PASSWORD: "root"
+
+---
+
+apiVersion: v1
+kind: Secret
+data:
+  POSTGRES_PASSWORD: "cm9vdA=="
+  POSTGRES_USER: "cG9zdGdyZXM="
+metadata:
+  name: info-secret
+  namespace: default
+type: Opaque  
 
 ---
 
@@ -28,28 +39,39 @@ spec:
     spec:
       containers:
       - name: info
-        image: mytyan/info:0.0.1
+        image: mytyan/info:0.0.2
         env:
+
           - name: POSTGRES_HOST
             valueFrom:
               configMapKeyRef:
                 name: info-config
                 key: POSTGRES_HOST
+
           - name: POSTGRES_PORT
             valueFrom:
               configMapKeyRef:
                 name: info-config
                 key: POSTGRES_PORT
+
           - name: POSTGRES_DB_NAME
             valueFrom:
               configMapKeyRef:
                 name: info-config
                 key: POSTGRES_DB_NAME
+
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: info-secret
+                key: POSTGRES_USER
+
           - name: POSTGRES_PASSWORD
             valueFrom:
-              configMapKeyRef:
-                name: info-config
-                key: POSTGRES_PASSWORD
+              secretKeyRef:
+                name: info-secret
+                key: POSTGRES_PASSWORD     
+
         ports:
         - containerPort: 8080
 
