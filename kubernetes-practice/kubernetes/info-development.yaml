@@ -3,8 +3,8 @@ kind: ConfigMap
 metadata:
   name: info-config
 data:
-  POSTGRES_HOST: "192.168.0.106"
-  POSTGRES_PORT: "5555"
+  POSTGRES_HOST: "rc1b-ql7ux6os9vlyfpra.mdb.yandexcloud.net"
+  POSTGRES_PORT: "6432"
   POSTGRES_DB_NAME: "speaker"
 
 ---
@@ -12,8 +12,8 @@ data:
 apiVersion: v1
 kind: Secret
 data:
-  POSTGRES_PASSWORD: "cm9vdA=="
-  POSTGRES_USER: "cG9zdGdyZXM="
+  POSTGRES_PASSWORD: "MTIzcXdlYXNkenhj"
+  POSTGRES_USER: "dXNlcg=="
 metadata:
   name: info-secret
   namespace: default

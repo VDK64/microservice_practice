@@ -2,13 +2,16 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: main-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt"  
 spec:
   tls:
     - hosts:
-        - speaker.com
-      # secretName: yc-certmgr-cert-id-fpqqe6vefc45lqpbkljm
+        - biognom.ru
+      secretName: letsencrypt
   rules:
-    - host: speaker.com
+    - host: biognom.ru
       http:
         paths:
           - path: /speaker-api
